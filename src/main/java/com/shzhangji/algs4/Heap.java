@@ -58,7 +58,7 @@ public class Heap {
         }
     }
 
-    public static void main( String[] args ) {
+    public static void main(String[] args) {
         String[] a = StdIn.readAllStrings();
         sort(a);
         show(a);

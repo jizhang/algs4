@@ -8,3 +8,8 @@ $ mvn install:install-file -Dfile=lib/algs4.jar -DgroupId=edu.princeton.cs -Dart
 ```
 
 * Import into Eclipse as "Existing Maven Project".
+* Run main class in command line:
+
+```bash
+$ mvn exec:java -Dexec.mainClass=com.shzhangji.algs4.Heap
+```
