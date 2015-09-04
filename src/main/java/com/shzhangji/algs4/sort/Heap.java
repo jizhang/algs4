@@ -1,14 +1,15 @@
-package com.shzhangji.algs4;
+package com.shzhangji.algs4.sort;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
  * http://algs4.cs.princeton.edu/24pq/
+ * O(nlogn), O(nlogn), O(nlogn), O(1)
  */
 public class Heap {
 
-    private static <T extends Comparable<? super T>> void sort(T[] pq) {
+    public static <T extends Comparable<? super T>> void sort(T[] pq) {
 
         int N = pq.length;
 
