@@ -26,10 +26,36 @@ public class LongestCommonSubstring {
         return result;
     }
 
+    public static String suffixArray(String a, String b) {
+
+        String text = a + "\001" + b;
+        SuffixArray suffix = new SuffixArray(text);
+
+        int N = text.length();
+        int N1 = a.length();
+
+        String result = "";
+        for (int i = 1; i < N; ++i) {
+            if (suffix.index(i) < N1 && suffix.index(i - 1) < N1) {
+                continue;
+            }
+            if (suffix.index(i) > N1 && suffix.index(i - 1) > N1) {
+                continue;
+            }
+            int length = suffix.lcp(i);
+            if (length > result.length()) {
+                result = text.substring(suffix.index(i), suffix.index(i) + length);
+            }
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         String a = StdIn.readLine();
         String b = StdIn.readLine();
-        StdOut.println(bruteForce(a, b));
+        StdOut.println("bruteForce: " + bruteForce(a, b));
+        StdOut.println("suffixArray: " + suffixArray(a, b));
     }
 
 }
