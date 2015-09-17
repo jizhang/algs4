@@ -16,7 +16,7 @@ public class Quick {
     }
 
     private static <T extends Comparable<? super T>> void sort(T[] a, int lo, int hi) {
-        if (hi <= lo) {
+        if (lo >= hi) {
             return;
         }
         int j = partition(a, lo, hi);
@@ -28,21 +28,11 @@ public class Quick {
 
         int i = lo;
         int j = hi + 1;
-        T v = a[lo];
 
         while (true) {
 
-            while (less(a[++i], v)) {
-                if (i == hi) {
-                    break;
-                }
-            }
-
-            while (less(v, a[--j])) {
-                if (j == lo) {
-                    break;
-                }
-            }
+            while (less(a[++i], a[lo]) && i < hi);
+            while (less(a[lo], a[--j]) && j > lo);
 
             if (i >= j) {
                 break;
