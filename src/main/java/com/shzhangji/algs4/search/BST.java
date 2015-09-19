@@ -67,4 +67,12 @@ public class BST<K extends Comparable<? super K>, V> {
         return x;
     }
 
+    public K min() {
+        return min(root);
+    }
+
+    private K min(Node x) {
+        return x == null ? null : min(x.left);
+    }
+
 }
