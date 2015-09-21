@@ -22,12 +22,20 @@ public class BST<K extends Comparable<? super K>, V> {
 
     private Node root;
 
+    public void clear() {
+        root = null;
+    }
+
     public int size() {
         return size(root);
     }
 
     private int size(Node x) {
         return x == null ? 0 : x.N;
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
     }
 
     public V get(K key) {
@@ -117,6 +125,68 @@ public class BST<K extends Comparable<? super K>, V> {
         if (cmphi > 0) {
             keys(x.right, queue, lo, hi);
         }
+    }
+
+    public Iterable<K> preOrder() {
+        Queue<K> queue = new LinkedList<>();
+        preOrder(root, queue);
+        return queue;
+    }
+
+    private void preOrder(Node x, Queue<K> queue) {
+        if (x != null) {
+            queue.enqueue(x.key);
+            preOrder(x.left, queue);
+            preOrder(x.right, queue);
+        }
+    }
+
+    public Iterable<K> postOrder() {
+        Queue<K> queue = new LinkedList<>();
+        postOrder(root, queue);
+        return queue;
+    }
+
+    private void postOrder(Node x, Queue<K> queue) {
+        if (x != null) {
+            postOrder(x.left, queue);
+            postOrder(x.right, queue);
+            queue.enqueue(x.key);
+        }
+    }
+
+    public Iterable<K> inOrder() {
+        Queue<K> queue = new LinkedList<>();
+        inOrder(root, queue);
+        return queue;
+    }
+
+    private void inOrder(Node x, Queue<K> queue) {
+        if (x != null) {
+            inOrder(x.left, queue);
+            queue.enqueue(x.key);
+            inOrder(x.right, queue);
+        }
+    }
+
+    public Iterable<K> levelOrder() {
+
+        Queue<K> keys = new LinkedList<>();
+        Queue<Node> nodes = new LinkedList<>();
+
+        nodes.enqueue(root);
+        while (!nodes.isEmpty()) {
+            Node node = nodes.dequeue();
+            keys.enqueue(node.key);
+            if (node.left != null) {
+                nodes.enqueue(node.left);
+            }
+            if (node.right != null) {
+                nodes.enqueue(node.right);
+            }
+        }
+
+        return keys;
     }
 
     public static void main(String[] args) {

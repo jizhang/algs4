@@ -15,6 +15,11 @@ public class LinkedList<T> implements Stack<T>, Queue<T> {
     private Node head;
 
     @Override
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    @Override
     public void push(T value) {
         Node node = new Node(value);
         node.next = head;
