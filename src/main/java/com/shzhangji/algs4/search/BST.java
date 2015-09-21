@@ -1,5 +1,11 @@
 package com.shzhangji.algs4.search;
 
+import com.shzhangji.algs4.basic.LinkedList;
+import com.shzhangji.algs4.basic.Queue;
+
+import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdOut;
+
 public class BST<K extends Comparable<? super K>, V> {
 
     class Node {
@@ -72,7 +78,59 @@ public class BST<K extends Comparable<? super K>, V> {
     }
 
     private K min(Node x) {
-        return x == null ? null : min(x.left);
+        return x.left == null ? x.key : min(x.left);
+    }
+
+    public K max() {
+        return max(root);
+    }
+
+    private K max(Node x) {
+        return x.right == null ? x.key : max(x.right);
+    }
+
+    public Iterable<K> keys() {
+        return keys(min(), max());
+    }
+
+    public Iterable<K> keys(K lo, K hi) {
+        Queue<K> queue = new LinkedList<>();
+        keys(root, queue, lo, hi);
+        return queue;
+    }
+
+    private void keys(Node x, Queue<K> queue, K lo, K hi) {
+
+        if (x == null) {
+            return;
+        }
+
+        int cmplo = lo.compareTo(x.key);
+        int cmphi = hi.compareTo(x.key);
+
+        if (cmplo < 0) {
+            keys(x.left, queue, lo, hi);
+        }
+        if (cmplo <= 0 && cmphi >= 0) {
+            queue.enqueue(x.key);
+        }
+        if (cmphi > 0) {
+            keys(x.right, queue, lo, hi);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        BST<String, Integer> bst = new BST<>();
+
+        for (int i = 0; !StdIn.isEmpty(); ++i) {
+            bst.put(StdIn.readString(), i);
+        }
+
+        for (String s : bst.keys()) {
+            StdOut.println(s + " " + bst.get(s));
+        }
+
     }
 
 }

@@ -1,6 +1,8 @@
 package com.shzhangji.algs4.basic;
 
-public class LinkedList<T> implements Stack<T> {
+import java.util.Iterator;
+
+public class LinkedList<T> implements Stack<T>, Queue<T> {
 
     class Node {
         T value;
@@ -15,12 +17,8 @@ public class LinkedList<T> implements Stack<T> {
     @Override
     public void push(T value) {
         Node node = new Node(value);
-        if (head == null) {
-            head = node;
-        } else {
-            node.next = head;
-            head = node;
-        }
+        node.next = head;
+        head = node;
     }
 
     @Override
@@ -34,5 +32,49 @@ public class LinkedList<T> implements Stack<T> {
         head = head.next;
         return node.value;
     }
+
+    @Override
+    public void enqueue(T value) {
+
+        if (head == null) {
+            head = new Node(value);
+            return;
+        }
+
+        Node node = head;
+        while (node.next != null) {
+            node = node.next;
+        }
+        node.next = new Node(value);
+    }
+
+    @Override
+    public T dequeue() {
+        return pop();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ListIterator();
+    }
+
+    class ListIterator implements Iterator<T> {
+
+        Node current = head;
+
+        @Override
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        @Override
+        public T next() {
+            Node node = current;
+            current = current.next;
+            return node.value;
+        }
+
+    }
+
 
 }
