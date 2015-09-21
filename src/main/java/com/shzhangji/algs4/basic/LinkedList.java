@@ -39,6 +39,11 @@ public class LinkedList<T> implements Stack<T>, Queue<T> {
     }
 
     @Override
+    public T peek() {
+        return head == null ? null : head.value;
+    }
+
+    @Override
     public void enqueue(T value) {
 
         if (head == null) {

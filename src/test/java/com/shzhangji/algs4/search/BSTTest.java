@@ -25,7 +25,7 @@ public class BSTTest {
         bst.put("b", 4);
 
         Assert.assertEquals("c a b d", StringUtils.join(bst.preOrder(), " "));
-        Assert.assertEquals("a b c d", StringUtils.join(bst.inOrder(), " "));
+        Assert.assertEquals("a b c d", StringUtils.join(bst.keys(), " "));
         Assert.assertEquals("b a d c", StringUtils.join(bst.postOrder(), " "));
         Assert.assertEquals("c a d b", StringUtils.join(bst.levelOrder(), " "));
     }

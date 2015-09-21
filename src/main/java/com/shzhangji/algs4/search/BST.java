@@ -2,6 +2,7 @@ package com.shzhangji.algs4.search;
 
 import com.shzhangji.algs4.basic.LinkedList;
 import com.shzhangji.algs4.basic.Queue;
+import com.shzhangji.algs4.basic.Stack;
 
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
@@ -141,32 +142,31 @@ public class BST<K extends Comparable<? super K>, V> {
         }
     }
 
+    /**
+     * https://en.wikipedia.org/wiki/Tree_traversal#Post-order_2
+     */
     public Iterable<K> postOrder() {
+
         Queue<K> queue = new LinkedList<>();
-        postOrder(root, queue);
-        return queue;
-    }
+        Stack<Node> parentStack = new LinkedList<>();
+        Node node = root, lastNodeVisited = null;
 
-    private void postOrder(Node x, Queue<K> queue) {
-        if (x != null) {
-            postOrder(x.left, queue);
-            postOrder(x.right, queue);
-            queue.enqueue(x.key);
+        while (!parentStack.isEmpty() || node != null) {
+            if (node != null) {
+                parentStack.push(node);
+                node = node.left;
+            } else {
+                Node peekNode = parentStack.peek();
+                if (peekNode.right != null && lastNodeVisited != peekNode.right) {
+                    node = peekNode.right;
+                } else {
+                    queue.enqueue(peekNode.key);
+                    lastNodeVisited = parentStack.pop();
+                }
+            }
         }
-    }
 
-    public Iterable<K> inOrder() {
-        Queue<K> queue = new LinkedList<>();
-        inOrder(root, queue);
         return queue;
-    }
-
-    private void inOrder(Node x, Queue<K> queue) {
-        if (x != null) {
-            inOrder(x.left, queue);
-            queue.enqueue(x.key);
-            inOrder(x.right, queue);
-        }
     }
 
     public Iterable<K> levelOrder() {
