@@ -1,5 +1,9 @@
 package com.shzhangji.algs4.sort;
 
+import java.util.Arrays;
+
+import com.shzhangji.algs4.util.StringUtils;
+
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
@@ -56,16 +60,41 @@ public class Quick {
         pq[j] = swap;
     }
 
-    private static void show(Object[] a) {
-        for (int i = 0; i < a.length; ++i) {
-            StdOut.println(a[i]);
+    public static <T extends Comparable<? super T>> void sort1(T[] a) {
+        StdRandom.shuffle(a);
+        sort(a, 0, a.length - 1);
+    }
+
+    public static <T extends Comparable<? super T>> void sort1(T[] a, int lo, int hi) {
+
+        T pivot = a[lo + (hi - lo) / 2];
+        int i = lo, j = hi;
+
+        while (i <= j) {
+            while (less(a[i], pivot)) ++i;
+            while (less(pivot, a[j])) --j;
+            if (i <= j) {
+                exch(a, i, j);
+                ++i;
+                --j;
+            }
         }
+
+        if (lo < j) sort1(a, lo, j);
+        if (hi > i) sort1(a, i, hi);
     }
 
     public static void main(String[] args) {
+
         String[] a = StdIn.readAllStrings();
+        String[] b = Arrays.copyOf(a, a.length);
+
         Quick.sort(a);
-        show(a);
+        StdOut.println(StringUtils.join(a, " "));
+
+        Quick.sort1(b);
+        StdOut.println(StringUtils.join(b, " "));
+
     }
 
 }
