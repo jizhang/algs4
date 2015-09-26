@@ -1,12 +1,9 @@
 package com.shzhangji.algs4.strings;
 
-import java.lang.reflect.Method;
-
 import edu.princeton.cs.algs4.StdOut;
 
 public class Search {
 
-    @SearchMethod
     public static int bruteForce(String pat, String txt) {
         int M = pat.length();
         int N = txt.length();
@@ -24,7 +21,6 @@ public class Search {
         return N;
     }
 
-    @SearchMethod
     public static int kmp(String pat, String txt) {
 
         // Build DFA from pattern.
@@ -52,17 +48,13 @@ public class Search {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         String pattern = "needle";
         String text = "inahaystackneedleina";
 
-        for (Method method : Search.class.getMethods()) {
-            if (method.isAnnotationPresent(SearchMethod.class)) {
-                int pos = (int) method.invoke(null, pattern, text);
-                StdOut.println(method.getName() + ": " + pos);
-            }
-        }
+        StdOut.println("bruteForce: " + bruteForce(pattern, text));
+        StdOut.println("kmp: " + bruteForce(pattern, text));
 
     }
 
