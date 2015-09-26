@@ -52,19 +52,15 @@ public class Search {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         String pattern = "needle";
         String text = "inahaystackneedleina";
 
         for (Method method : Search.class.getMethods()) {
             if (method.isAnnotationPresent(SearchMethod.class)) {
-                try {
-                    int pos = (int) method.invoke(null, pattern, text);
-                    StdOut.println(method.getName() + ": " + pos);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                int pos = (int) method.invoke(null, pattern, text);
+                StdOut.println(method.getName() + ": " + pos);
             }
         }
 
