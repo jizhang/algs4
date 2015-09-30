@@ -51,6 +51,10 @@ public class LongestCommonSubstring {
         return result;
     }
 
+    /**
+     * http://introcs.cs.princeton.edu/java/96optimization/LCS.java.html
+     * FIXME
+     */
     public static String dynamic(String a, String b) {
 
         int M = a.length();
