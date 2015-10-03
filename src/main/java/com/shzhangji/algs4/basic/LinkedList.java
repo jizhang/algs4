@@ -86,5 +86,33 @@ public class LinkedList<T> implements Stack<T>, Queue<T> {
 
     }
 
+    public void reverse() {
+        Node parent = null;
+        Node current = head;
+        while (current != null) {
+            Node next = current.next;
+            current.next = parent;
+            parent = current;
+            current = next;
+        }
+        head = parent;
+    }
+
+    public void reverse1() {
+        reverse1(head);
+    }
+
+    private void reverse1(Node current) {
+        if (current == null) {
+            return;
+        }
+        if (current.next == null) {
+            head = current;
+            return;
+        }
+        reverse1(current.next);
+        current.next.next = current;
+        current.next = null;
+    }
 
 }
