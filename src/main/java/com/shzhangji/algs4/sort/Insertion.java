@@ -13,7 +13,6 @@ public class Insertion {
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static void sort(Comparable[] a) {
         for (int i = 1; i < a.length; ++i) {
-
             int j = i;
             while (j > 0 && a[j].compareTo(a[j - 1]) < 0) {
                 Comparable t = a[j];
