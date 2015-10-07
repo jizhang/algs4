@@ -8,11 +8,21 @@ public class LongestIncreasingSubsequence {
 
     /**
      * https://youtu.be/4fQJGoeW5VE
+     * \begin{equation}
+     * L(n) = \left\{
+     *   \begin{array}{ll}
+     *     1 & \mbox{if } n = 1, \\
+     *     max^{n - 1}_{i = 1}(L(n - i)) + 1 & \mbox{where } s_n \geq s_i
+     *   \end{array}
+     * \right.
+     * \end{equation}
      */
     public static int[] calcN2(int[] a) {
 
         int[] L = new int[a.length];
-        for (int i = 0; i < a.length; ++i) {
+        L[0] = 1;
+
+        for (int i = 1; i < a.length; ++i) {
             L[i] = 1;
             for (int j = 0; j < i; ++j) {
                 if (a[j] < a[i] && L[j] + 1 > L[i]) {
