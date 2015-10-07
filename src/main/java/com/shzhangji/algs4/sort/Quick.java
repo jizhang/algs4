@@ -84,6 +84,17 @@ public class Quick {
         if (hi > i) sort1(a, i, hi);
     }
 
+    public static void sort1(int[] a) {
+        Integer[] aa = new Integer[a.length];
+        for (int i = 0; i < a.length; ++i) {
+            aa[i] = a[i];
+        }
+        sort(aa);
+        for (int i = 0; i < aa.length; ++i) {
+            a[i] = aa[i];
+        }
+    }
+
     public static void main(String[] args) {
 
         String[] a = StdIn.readAllStrings();
