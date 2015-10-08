@@ -36,19 +36,19 @@ public class LongestCommonSubsequence {
         printMatrix(opt);
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0, j = 0; i < M && j < N; ) {
-            if (a.charAt(i) == b.charAt(j)) {
-                sb.append(a.charAt(i));
-                ++i;
-                ++j;
-            } else if (opt[i + 1][j] >= opt[i][j + 1]) {
-                ++i;
+        for (int i = M, j = N; i > 0 && j > 0; ) {
+            if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                sb.append(a.charAt(i - 1));
+                --i;
+                --j;
+            } else if (opt[i - 1][j] >= opt[i][j - 1]) {
+                --i;
             } else {
-                ++j;
+                --j;
             }
         }
 
-        return sb.toString();
+        return sb.reverse().toString();
     }
 
     public static void printMatrix(int[][] opt) {

@@ -1,5 +1,7 @@
 package com.shzhangji.algs4.context;
 
+import com.shzhangji.algs4.dynamic.LongestCommonSubsequence;
+
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -53,7 +55,6 @@ public class LongestCommonSubstring {
 
     /**
      * http://introcs.cs.princeton.edu/java/96optimization/LCS.java.html
-     * FIXME
      */
     public static String dynamic(String a, String b) {
 
@@ -65,21 +66,29 @@ public class LongestCommonSubstring {
             for (int j = N - 1; j >= 0; --j) {
                 if (a.charAt(i) == b.charAt(j)) {
                     opt[i][j] = opt[i + 1][j + 1] + 1;
-                } else {
-                    opt[i][j] = Math.max(opt[i + 1][j],  opt[i][j + 1]);
                 }
             }
         }
 
+        LongestCommonSubsequence.printMatrix(opt);
+
+        int max = 0, maxIndex = 0;
+        for (int i = 0; i < opt.length; ++i) {
+            if (opt[i][0] > max) {
+                max = opt[i][0];
+                maxIndex = i;
+            }
+        }
+
+        if (max == 0) {
+            return "";
+        }
+
         StringBuilder sb = new StringBuilder();
-        for (int i = 0, j = 0; i < M && j < N; ) {
+        for (int i = maxIndex, j = 0; i < M && j < N; ) {
             if (a.charAt(i) == b.charAt(j)) {
                 sb.append(a.charAt(i));
                 ++i;
-                ++j;
-            } else if (opt[i + 1][j] >= opt[i][j + 1]) {
-                ++i;
-            } else {
                 ++j;
             }
         }
