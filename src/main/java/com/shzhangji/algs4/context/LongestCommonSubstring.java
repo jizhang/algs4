@@ -72,11 +72,14 @@ public class LongestCommonSubstring {
 
         LongestCommonSubsequence.printMatrix(opt);
 
-        int max = 0, maxIndex = 0;
+        int max = 0, iMax = 0, jMax = 0;
         for (int i = 0; i < opt.length; ++i) {
-            if (opt[i][0] > max) {
-                max = opt[i][0];
-                maxIndex = i;
+            for (int j = 0; j < opt[i].length; ++j) {
+                if (opt[i][j] > max) {
+                    max = opt[i][j];
+                    iMax = i;
+                    jMax = j;
+                }
             }
         }
 
@@ -85,7 +88,7 @@ public class LongestCommonSubstring {
         }
 
         StringBuilder sb = new StringBuilder();
-        for (int i = maxIndex, j = 0; i < M && j < N; ) {
+        for (int i = iMax, j = jMax; i < M && j < N; ) {
             if (a.charAt(i) == b.charAt(j)) {
                 sb.append(a.charAt(i));
                 ++i;
